@@ -1,0 +1,222 @@
+ <!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Legal Sphere</title> 
+<style> 
+:root { --bg: #f4f6fa; --card: #ffffff; --text: #1f2937; --accent: #1e3a8a; --border: #d1d5db; 
+} 
+body.dark { --bg: #111827; --card: #1f2937; --text: #f3f4f6; --accent: #60a5fa; --border: #374151; 
+} 
+* { 
+box-sizing: border-box; 
+} 
+body { 
+margin: 0; 
+font-family: Arial, sans-serif; 
+background: var(--bg); 
+color: var(--text); 
+transition: background 0.3s, color 0.3s; 
+} 
+header { 
+display: flex; 
+justify-content: space-between; 
+align-items: center; 
+padding: 15px 30px; 
+background: var(--accent); 
+color: #ffffff; 
+} 
+header h1 { 
+margin: 0; 
+font-size: 24px; 
+} 
+#themeBtn { 
+padding: 8px 16px; 
+border: none; 
+border-radius: 20px; 
+cursor: pointer; 
+font-size: 14px; 
+ 
+ 
+    background: #ffffff; 
+    color: #1e3a8a; 
+} 
+.container { 
+    width: 90%; 
+    max-width: 900px; 
+    margin: 30px auto; 
+} 
+.card { 
+    background: var(--card); 
+    border: 1px solid var(--border); 
+    border-radius: 8px; 
+    padding: 20px; 
+    margin-bottom: 20px; 
+    transition: background 0.3s; 
+} 
+.card h2 { 
+    margin-top: 0; 
+    color: var(--accent); 
+} 
+.service { 
+    border-bottom: 1px solid var(--border); 
+    padding: 10px 0; 
+} 
+.service button { 
+    background: none; 
+    border: none; 
+    color: var(--text); 
+    font-size: 16px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    width: 100%; 
+    text-align: left; 
+} 
+.service p { 
+    display: none; 
+    margin: 8px 0 0 0; 
+} 
+.service p.show { 
+    display: block; 
+} 
+label { 
+    display: block; 
+    margin-top: 12px; 
+} 
+input, select, textarea { 
+    width: 100%; 
+    padding: 8px; 
+    margin-top: 5px; 
+    border: 1px solid var(--border); 
+    border-radius: 5px; 
+    background: var(--bg); 
+    color: var(--text); 
+} 
+#submitBtn { 
+    margin-top: 15px; 
+    padding: 10px 20px; 
+ 
+ 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    background: var(--accent); 
+    color: #ffffff; 
+} 
+#message { 
+    margin-top: 15px; 
+    font-weight: bold; 
+} 
+footer { 
+    text-align: center; 
+    padding: 15px; 
+    border-top: 1px solid var(--border); 
+} 
+</style> 
+</head> 
+<body> 
+ 
+<header> 
+    <h1>Legal Sphere</h1> 
+    <button id="themeBtn">Dark Mode</button> 
+</header> 
+ 
+<div class="container"> 
+ 
+    <div class="card"> 
+        <h2>Legal Advisory and Documentation</h2> 
+        <p>Legal Sphere helps people get simple legal advice and prepare legal documents easily.</p> 
+    </div> 
+ 
+    <div class="card"> 
+        <h2>Our Services</h2> 
+        <div class="service"> 
+            <button>Legal Advisory</button> 
+            <p>Get guidance on property, family, business and consumer matters from legal 
+experts.</p> 
+        </div> 
+        <div class="service"> 
+            <button>Document Drafting</button> 
+            <p>We prepare rental agreements, affidavits, wills and power of attorney documents.</p> 
+        </div> 
+        <div class="service"> 
+            <button>Document Verification</button> 
+            <p>Our team checks your legal papers for errors and missing details.</p> 
+        </div> 
+    </div> 
+ 
+    <div class="card"> 
+        <h2>Request a Consultation</h2> 
+        <label>Name 
+            <input type="text" id="name" placeholder="Enter your name"> 
+        </label> 
+        <label>Service 
+            <select id="service"> 
+                <option value="">Select a service</option> 
+                <option>Legal Advisory</option> 
+ 
+ 
+                <option>Document Drafting</option> 
+                <option>Document Verification</option> 
+            </select> 
+        </label> 
+        <label>Details 
+            <textarea id="details" rows="3" placeholder="Describe your requirement"></textarea> 
+        </label> 
+        <button id="submitBtn">Submit</button> 
+        <div id="message"></div> 
+    </div> 
+ 
+</div> 
+ 
+<footer> 
+    <p>&copy; 2026 Legal Sphere. All rights reserved.</p> 
+</footer> 
+ 
+<script> 
+const themeBtn = document.getElementById("themeBtn"); 
+const serviceButtons = document.querySelectorAll(".service button"); 
+const submitBtn = document.getElementById("submitBtn"); 
+const message = document.getElementById("message"); 
+ 
+if (localStorage.getItem("theme") === "dark") { 
+    document.body.classList.add("dark"); 
+    themeBtn.textContent = "Light Mode"; 
+} 
+ 
+themeBtn.addEventListener("click", function () { 
+    document.body.classList.toggle("dark"); 
+    if (document.body.classList.contains("dark")) { 
+        themeBtn.textContent = "Light Mode"; 
+        localStorage.setItem("theme", "dark"); 
+    } else { 
+        themeBtn.textContent = "Dark Mode"; 
+        localStorage.setItem("theme", "light"); 
+    } 
+}); 
+ 
+serviceButtons.forEach(function (button) { 
+    button.addEventListener("click", function () { 
+        button.nextElementSibling.classList.toggle("show"); 
+    }); 
+}); 
+ 
+submitBtn.addEventListener("click", function () { 
+    const name = document.getElementById("name").value.trim(); 
+    const service = document.getElementById("service").value; 
+    const details = document.getElementById("details").value.trim(); 
+ 
+    if (name === "" || service === "" || details === "") { 
+        message.textContent = "Please fill in all the fields."; 
+        message.style.color = "red"; 
+    } else { 
+        message.textContent = "Thank you, " + name + ". Your request for " + service + " has been 
+received."; 
+        message.style.color = "green"; 
+ 
+} 
+}); 
+</script> 
+</body> 
+</html>
